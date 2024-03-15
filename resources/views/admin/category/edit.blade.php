@@ -49,11 +49,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- @if (!empty($category->image)) --}}
+                                @if (!empty($category->image))
                                     <div>
                                         <img width="250 px" src="{{ asset('uploads/category/' . $category->image)  }}" alt="" >
                                     </div>
-                                {{-- @endif --}}
+                                @endif
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -63,6 +63,15 @@
                                         <option {{ ($category->status == 0 ) ? 'selected' : '' }} value="0">Block</option>
                                     </select>
 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="showHome">Show On Home</label>
+                                    <select name="showHome" id="showHome" class="form-control">
+                                        <option {{ ($category->showHome == 'Yes' ) ? 'selected' : '' }} value="Yes">Yes</option>
+                                        <option {{ ($category->showHome == 'No' ) ? 'selected' : '' }} value="No">No</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -57,7 +57,15 @@
                                         <option value="1">Active</option>
                                         <option value="0">Block</option>
                                     </select>
-
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="showHome">Show On Home</label>
+                                    <select name="showHome" id="showHome" class="form-control">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

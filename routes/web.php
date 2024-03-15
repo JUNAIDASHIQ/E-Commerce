@@ -5,8 +5,11 @@ use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\HomeController;
+use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\TempImagesController;
+use App\Http\Controllers\FrontController;
 use Illuminate\Http\Request;
 // use Illuminate\Http\Str;
 
@@ -21,9 +24,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/' , [FrontController::class , 'index'])->name('front.home');
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'admin.guest'], function () {
         Route::get('/login', [AdminLoginController::class, 'index'])->name('admin.login');
@@ -57,6 +61,18 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/brand/{brandID}/edit' , [BrandController::class , 'edit'])->name('brand.edit');
         Route::put('/brand/{brandID}' , [BrandController::class , 'update'])->name('brand.update');
         Route::delete('/brand/{brandID}' , [BrandController::class , 'destroy'])->name('brand.delete');
+
+        // Product Route
+        Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/products/create' , [ProductController::class , 'create'])->name('products.create');
+        Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/product/{productID}/edit' , [ProductController::class , 'edit'])->name('product.edit');
+        Route::put('/product/{productID}' , [ProductController::class , 'update'])->name('products.update');
+        Route::delete('/product/{productID}' , [ProductController::class , 'destroy'])->name('product.delete');
+
+
+        Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('product-subcategories.index');
+
 
         Route::get('/getSlug', function (Request $request) {
             $slug = '';

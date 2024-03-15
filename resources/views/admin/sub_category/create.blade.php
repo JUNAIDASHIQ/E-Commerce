@@ -49,7 +49,7 @@
                                 <div class="mb-3">
                                     <label for="email">Slug</label>
                                     <input type="text" name="slug" id="slug" class="form-control"
-                                        placeholder="Slug" readonly>
+                                        placeholder="Slug">
                                     <p></p>
                                 </div>
                             </div>
@@ -61,6 +61,15 @@
                                         <option value="0">Block</option>
                                     </select>
                                     <p></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="showHome">Show On Home</label>
+                                    <select name="showHome" id="showHome" class="form-control">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +100,7 @@
                 success: function(response) {
                     $('button[type=submit]').prop('disabled', false);
                     if (response['status'] == true) {
-                        // window.location.href = "{{ route('categories.index') }}"
+                        window.location.href = "{{ route('sub-categories.index') }}"
                         // $('#name').removeClass('is-invalid')
                         //     .siblings('p')
                         //     .removeClass('invalid-feedback').html("");

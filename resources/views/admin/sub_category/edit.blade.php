@@ -26,16 +26,16 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" id="name" value="{{ $sub_category->name }}" class="form-control"
-                                        placeholder="Name">
+                                    <input type="text" name="name" id="name" value="{{ $sub_category->name }}"
+                                        class="form-control" placeholder="Name">
                                     <p></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="slug">Slug</label>
-                                    <input type="text" name="slug" id="slug" value="{{ $sub_category->slug }}" class="form-control"
-                                        placeholder="Slug" readonly>
+                                    <input type="text" name="slug" id="slug" value="{{ $sub_category->slug }}"
+                                        class="form-control" placeholder="Slug" readonly>
                                     <p></p>
                                 </div>
                             </div>
@@ -48,21 +48,33 @@
                                             <br>Drop files here or click to upload.<br><br>
                                         </div>
                                     </div>
-                                </div>
-                                {{-- @if (!empty($category->image)) --}}
-                                    <div>
+                                </div> --}}
+                            {{-- @if (!empty($category->image)) --}}
+                            {{-- <div>
                                         <img width="250 px" src="{{ asset('uploads/category/' . $sub_category->image)  }}" alt="" >
-                                    </div>
-                                {{-- @endif --}}
-                            </div> --}}
+                                    </div> --}}
+                            {{-- @endif --}}
+                            {{-- </div> --}}
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="status">Status</label>
                                     <select name="status" id="status" class="form-control">
-                                        <option {{ ($sub_category->status == 1 ) ? 'selected' : '' }} value="1">Active</option>
-                                        <option {{ ($sub_category->status == 0 ) ? 'selected' : '' }} value="0">Block</option>
+                                        <option {{ $sub_category->status == 1 ? 'selected' : '' }} value="1">Active
+                                        </option>
+                                        <option {{ $sub_category->status == 0 ? 'selected' : '' }} value="0">Block
+                                        </option>
                                     </select>
-
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="showHome">Show On Home</label>
+                                    <select name="showHome" id="showHome" class="form-control">
+                                        <option {{ $sub_category->showHome == 'Yes' ? 'selected' : '' }} value="Yes">Yes
+                                        </option>
+                                        <option {{ $sub_category->showHome == 'No' ? 'selected' : '' }} value="No">No
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -125,9 +137,9 @@
                 var form = $(this); // Changed the variable name to "form"
                 $('button[type=submit]').prop('disabled', true);
                 $.ajax({
-                    url: '{{ route('sub_categories.update' , $sub_category->id) }}',
+                    url: '{{ route('sub_categories.update', $sub_category->id) }}',
                     type: 'put',
-                    data: form.serialize(), 
+                    data: form.serialize(),
                     dataType: 'json',
                     success: function(response) {
                         $('button[type=submit]').prop('disabled', false);

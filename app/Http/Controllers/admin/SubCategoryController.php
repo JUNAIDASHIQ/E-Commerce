@@ -42,6 +42,7 @@ class SubCategoryController extends Controller
             $subCategory->slug = $request->slug;
             $subCategory->status = $request->status;
             $subCategory->category_id = $request->category;
+            $subCategory->showHome = $request->showHome;
             $subCategory->save();
             // Save Image Here
             if (!empty($request->image_id)) {
@@ -102,6 +103,7 @@ class SubCategoryController extends Controller
             $subCategory->name = $request->name;
             $subCategory->slug = $request->slug;
             $subCategory->status = $request->status;
+            $subCategory->showHome = $request->showHome;
             $subCategory->save();
             // $oldImage = $subCategory->image;
             // // Save Image Here
