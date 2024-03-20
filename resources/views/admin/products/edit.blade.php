@@ -43,9 +43,22 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
+                                            <label for="description">Short Description</label>
+                                            <textarea name="short_description" id="short_description" cols="30" rows="10" class="summernote"
+                                                placeholder="Short Description">{{ $product->short_description }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
                                             <label for="description">Description</label>
-                                            <textarea name="description" value="{{ $product->description }}" id="description" cols="30" rows="10"
-                                                class="summernote" placeholder="Description"></textarea>
+                                            <textarea name="description" id="description" cols="30" rows="10" class="summernote"
+                                                placeholder="Description">{{ $product->description }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="description">Shipping and Returns</label>
+                                            <textarea name="shipping_returns" id="shipping_returns" cols="30" rows="10" class="summernote">{{ $product->shipping_returns }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -61,13 +74,14 @@
                                     </div>
                                 </div>
                                 @if (!empty($product->product_images))
-                                @php
-                                    $productImage = $product->product_images->first();
-                                @endphp
-                                <div>
-                                    <img width="250 px" src="{{ asset('uploads/product/large/' . $productImage->image) }}"
-                                        alt="">
-                                </div>
+                                    @php
+                                        $productImage = $product->product_images->first();
+                                    @endphp
+                                    <div>
+                                        <img width="250 px"
+                                            src="{{ asset('uploads/product/large/' . $productImage->image) }}"
+                                            alt="">
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -104,8 +118,8 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="sku">SKU (Stock Keeping Unit)</label>
-                                            <input type="text" name="sku" value="{{ $product->sku }}" id="sku"
-                                                class="form-control" placeholder="sku">
+                                            <input type="text" name="sku" value="{{ $product->sku }}"
+                                                id="sku" class="form-control" placeholder="sku">
                                             <p class="error"></p>
                                         </div>
                                     </div>
@@ -337,6 +351,7 @@
                 },
                 dataType: 'json',
                 success: function(response) {
+                    
                     $('button[type=submit]').prop('disabled', false);
                     if (response['status'] == true) {
                         $('#slug').val(response['slug'])
@@ -355,6 +370,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(file, response) {
+                console.log(response);
                 $("#image_id").val(response.image_id);
                 //console.log(response)
             }

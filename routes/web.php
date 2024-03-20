@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\BrandController;
@@ -28,6 +29,9 @@ use Illuminate\Http\Request;
 //     return view('welcome');
 // });
 Route::get('/' , [FrontController::class , 'index'])->name('front.home');
+Route::get('/shop/{categorySlug?}/{subCategorySlug?}' , [ShopController::class , 'index'])->name('front.shop');
+Route::get('/product/{slug}' , [ShopController::class , 'product'])->name('front.product');
+
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'admin.guest'], function () {
         Route::get('/login', [AdminLoginController::class, 'index'])->name('admin.login');
@@ -68,6 +72,11 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/products', [ProductController::class, 'store'])->name('products.store');
         Route::get('/product/{productID}/edit' , [ProductController::class , 'edit'])->name('product.edit');
         Route::put('/product/{productID}' , [ProductController::class , 'update'])->name('products.update');
+
+        Route::get('/product/{productID}/edit', [ProductController::class, 'edit'])->name('product.edit');
+        Route::put('/product/{productID}', [ProductController::class, 'update'])->name('products.update');
+        
+
         Route::delete('/product/{productID}' , [ProductController::class , 'destroy'])->name('product.delete');
 
 

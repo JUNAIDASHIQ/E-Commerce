@@ -65,7 +65,9 @@ class ProductController extends Controller
             $product = new Product;
             $product->title = $request->title;
             $product->slug = $request->slug;
+            $product->short_description = $request->short_description;
             $product->description = $request->description;
+            $product->shipping_returns = $request->shipping_returns;
             $product->price = $request->price;
             $product->compare_price = $request->compare_price;
             $product->sku = $request->sku;
@@ -81,18 +83,30 @@ class ProductController extends Controller
             // $oldImage = $product->image;
             // Save Image Here
             if (!empty($request->image_id)) {
+                // echo "Image Id" . $request->image_id;
                 foreach ($request->image_id as $temp_image_id) {
                     $tempImageInfo = TempImage::find($temp_image_id);
-                    $extArray = explode('.', $tempImageInfo->name);
-                    $ext = last($extArray);
 
+                    // $extArray = explode('.', $tempImageInfo->name);
+                    // $ext = last($extArray);
+
+                    // $productImage = new ProductImage;
+                    // $productImage->product_id = $product->id;
+                    // $productImage->image = 'NULL';
+                    // $productImage->save();
+                    // $imageName = $product->id . '-' . $productImage->id . '-' . time() . '.' . $ext;
+                    // $productImage->image = $imageName;
+                    // $productImage->save();
+                    // $sourcePath = public_path() . '/temp/' . $tempImageInfo->name;
+                    // $destinationPath = public_path() . '/uploads/product/large/' . $tempImageInfo->name;
+                    // File::copy($sourcePath, $destinationPath);
+                    // Copy the image to product_images table
                     $productImage = new ProductImage;
                     $productImage->product_id = $product->id;
-                    $productImage->image = 'NULL';
+                    $productImage->image = $tempImageInfo->name; // Assuming 'name' field contains image name
                     $productImage->save();
-                    $imageName = $product->id . '-' . $productImage->id . '-' . time() . '.' . $ext;
-                    $productImage->image = $imageName;
-                    $productImage->save();
+
+                    // Move image from temp directory to product image directory
                     $sourcePath = public_path() . '/temp/' . $tempImageInfo->name;
                     $destinationPath = public_path() . '/uploads/product/large/' . $tempImageInfo->name;
                     File::copy($sourcePath, $destinationPath);
@@ -111,7 +125,7 @@ class ProductController extends Controller
         }
     }
 
-    public function edit($productId, Request $request)
+    public function edit($productId)
     {
         // $product['product'] = Product::find($productId)->with('product_images');
         $product['product'] = Product::with('product_images')->find($productId);
@@ -156,7 +170,9 @@ class ProductController extends Controller
         if ($validator->passes()) {
             $product->title = $request->title;
             $product->slug = $request->slug;
+            $product->short_description = $request->short_description;
             $product->description = $request->description;
+            $product->shipping_returns = $request->shipping_returns;
             $product->price = $request->price;
             $product->compare_price = $request->compare_price;
             $product->sku = $request->sku;
